@@ -1,0 +1,65 @@
+.row {
+  border-right: 2px solid rgb(254, 166, 114, 1);
+  border-bottom: 2px solid rgb(254, 166, 114, 1);
+  box-shadow: 10px 10px 15px -5px rgb(254, 166, 114, 1);
+  width: 80%;
+}
+.btnSocial{
+  font-size: 1.25rem;
+  border-radius: 15px;
+  border: none;
+  padding: 0.3rem;
+}
+.column {
+  padding: 6% 0;
+}
+
+.fContainer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin-bottom: 15px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.containerAll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 992px) {
+  .column {
+    position: relative;
+  }
+  .containerAll {
+    display: block;
+  }
+  .row {
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .row {
+    height: 100%;
+  }
+  .containerAll {
+    margin: 0 !important;
+  }
+
+  .fContainer {
+    padding: 0 !important;
+  }
+}

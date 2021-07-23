@@ -1,1 +1,147 @@
 /* You can add global styles to this file, and also import other style files */
+@import "breakPointsHidden.css";
+@import "~@angular/material/theming";
+
+html, body { height: 100%; }
+
+*{
+  box-sizing: border-box;
+  --primery-color:#FEECEC;
+  --secondary-color:#DC8AA0;
+  --tertiary-color:#FFF5F6;
+  --cuartary-color:#f5dede;
+
+  --bg-input1:#F6F8FB;
+
+  --primary-color-button:#C00908;
+  --button-color-auth:#FFDAC2;
+  --button-color-google:#3878E6;
+  --button-color-facebook:#3A588F;
+
+  --boxshadow-color1:#FFA66D;
+}
+
+@font-face {
+  font-family: 'Dancing Bold';
+  src: url('assets/fonts/Dancing/DancingScript-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Dancing Regular';
+  src: url('assets/fonts/Dancing/DancingScript-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Crete Regular';
+  src: url('assets/fonts/Crete/CreteRound-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Sarabun Medium';
+  src: url('assets/fonts/Sarabun/Sarabun-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Sarabun Bold';
+  src: url('assets/fonts/Sarabun/Sarabun-Bold.ttf');
+}
+
+.btn-google{
+  background-color: var(--button-color-google);
+  color: white;
+}
+
+.btn-facebook{
+  background-color: var(--button-color-facebook);
+  color: white;
+}
+.bg-primary-per{
+  background-color: var(--primery-color);
+}
+.bg-secondary-per{
+  background-color: var(--secondary-color);
+}
+.bg-cuartary-per{
+  background-color: var(--cuartary-color);
+}
+
+.bg-white{
+  background-color: white;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.text-white{
+  color:white;
+}
+
+
+.dancingB{
+  font-family: 'Dancing Bold';
+}
+.dancingR {
+  font-family: 'Dancing Regular';
+}
+.creteR {
+  font-family: 'Crete Regular';
+}
+.sarabunM {
+  font-family: 'Sarabun Medium';
+}
+.sarabunB {
+  font-family: 'Sarabun Bold';
+}
+
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+.content-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.separator{
+  flex-grow: 1;
+}
+
+.imgCardExtraSmall{
+  width: 15%;
+  height: auto;
+  align-self: center;
+}
+.imgCardSmall{
+  width: 20%;
+  height: auto;
+  align-self: center;
+}
+.imgCardMedium{
+  width: 75%;
+  height: auto;
+  align-self: center;
+}
+.imgCardSemiSmall{
+  width: 50%;
+  height: auto;
+  align-self: center;
+}
+.imgAvatar{
+  border-radius: 50%;
+}
+
+.full-screen{
+  width: 100%;
+  height: 100%;
+}
+
+.boxshadow-none{
+  box-shadow: none !important;
+  border: none !important;
+}
+.cursor-pointer{
+  cursor: pointer;
+}

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "pruebatecnicapokedex": {
+      "hosting": {
+        "pruebaTecnica": [
+          "pruebatecnicapokedex"
+        ]
+      }
+    }
+  }
+}
