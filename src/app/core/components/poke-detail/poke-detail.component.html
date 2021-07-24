@@ -1,0 +1,23 @@
+<mat-card class="card-pokemon bg-color2 ">
+  <mat-card-header>
+    <mat-card-title class="text-white">{{pokemon.name | uppercase}} | N°Pokedex: {{pokemon.id}}</mat-card-title>
+    <mat-card-subtitle class="text-subtitle text-white">Peso: {{pokemon.weight}} kg</mat-card-subtitle>
+  </mat-card-header>
+  <img class="imgPoke" mat-card-image [src]="pokemon.sprites.other.dream_world.front_default"
+    [alt]="pokemon.name | uppercase">
+    <div>
+      <h1 class="text-white">Habilidades</h1>
+      <ul>
+        <li *ngFor="let hab of habilities" class="text-subtitle text-white">{{hab.flavor_text}}</li>
+      </ul>
+    </div>
+    <div>
+      <h1 class="text-white">Tipos</h1>
+      <ul>
+        <li *ngFor="let type of pokemon.types" class="text-subtitle text-white">{{type.type.name |titlecase}}</li>
+      </ul>
+    </div>
+    <mat-card-actions [align]="'end'">
+      <button class="text-white" mat-dialog-close mat-button>Cerrar</button>
+    </mat-card-actions>
+</mat-card>

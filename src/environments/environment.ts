@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   name:'Pokedex',
+  url_poke:'https://pokeapi.co/api/v2',
   firebaseConfig:{
     apiKey: "AIzaSyDCxE2c0-0sozoTHU2Npw09HB3U5fYCZfo",
     authDomain: "pruebatecnicapokedex.firebaseapp.com",

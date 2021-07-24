@@ -1,1 +1,66 @@
-<button (click)="salir()">Salir</button>
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <mat-toolbar-row>
+    <span class="text-NBold">Pokedex</span>
+    <span class="example-spacer"></span>
+      <button (click)="logOut()" mat-flat-button color="primary">
+        Salir
+      </button>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+
+      <mat-form-field appearance="legacy" defaultColor="white">
+        <input type="number" [(ngModel)]="filterNumberPokedex" matInput placeholder="N° de pokedex">
+      </mat-form-field>
+
+      <mat-form-field class="mx-5" appearance="legacy" defaultColor="white">
+        <input type="text" [(ngModel)]="filterName" matInput placeholder="Nombre">
+      </mat-form-field>
+
+      <span class="example-spacer"></span>
+
+      <button mat-flat-button color="primary" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>sort</mat-icon> Filtrar por tipo:
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <mat-selection-list [(ngModel)]="filterType" [multiple]="false">
+          <mat-list-option [value]="null">
+            Ninguno
+          </mat-list-option>
+          <mat-list-option *ngFor="let type of types" [value]="type.value">
+            {{type.name}}
+          </mat-list-option>
+        </mat-selection-list>
+      </mat-menu>
+
+  </mat-toolbar-row>
+
+</mat-toolbar>
+<div class="container-fluid bg-color1">
+  <h1 class=" py-4 text-white text-NBold d-flex align-items-center justify-content-center">Todos los pokemons</h1>
+  <div class="container">
+    <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-2">
+      <div class="col p-3" *ngFor="let poke of pokemons | filterPokemons:filterType:filterNumberPokedex:filterName">
+        <mat-card class="card-pokemon bg-color2">
+          <mat-card-header>
+            <mat-card-title class="text-white">{{poke.name | uppercase}}</mat-card-title>
+            <mat-card-subtitle class="text-subtitle text-white">Peso: {{poke.weight}} kg</mat-card-subtitle>
+          </mat-card-header>
+
+          <img class="imgPoke" mat-card-image [src]="poke.sprites.other.dream_world.front_default"
+            [alt]="poke.name | uppercase">
+
+          <div class="buttonCard">
+
+            <button (click)="viewDetailPokemon(poke)" mat-flat-button color="accent">Inspeccionar</button>
+          </div>
+        </mat-card>
+
+      </div>
+    </div>
+  </div>
+  <p class="mb-0 text-center">
+    <button (click)="getMorePokemos()" mat-raised-button color="primary">Cargar más</button>
+  </p>
+</div>

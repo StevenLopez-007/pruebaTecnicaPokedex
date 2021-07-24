@@ -16,7 +16,7 @@ export class AuthTemplateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @HostListener('window:onresize')
+  @HostListener('window:resize')
   breakpoint(){
     return window.innerWidth;
   }
