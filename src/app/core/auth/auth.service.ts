@@ -36,13 +36,18 @@ export class AuthService {
     private ngxSpinnerService: NgxSpinnerService,
     private angularFirestore: AngularFirestore) {
 
+      // Observable que emite un valor cada vez que el estado de autenticacion del usuario cambia (concecta o se desconecta)
     this.angularFireAuth.authState.pipe(
       switchMap((userAuth) => {
         if (userAuth) {
+          // Se obtiene el metodo de autenticacion usado
           const provider: string = userAuth.providerData[0].providerId;
+
+          // Si no es por Google o Facebook, trae los datos de la base de datos
           if (!(this.providersID.includes(provider))) {
             return this.angularFirestore.collection('users').doc(userAuth.uid).valueChanges()
           } else {
+            // Si no, se utiliza los datos que el metodo de autenticacion devuelve
             const user: User = {
               userName: userAuth.displayName,
               uid: userAuth.uid,
@@ -57,6 +62,7 @@ export class AuthService {
       })
     ).subscribe((userAuth: User) => {
       if (userAuth) {
+        // Se pasa el usuairo autenticado al observavle user
         this.user.next(userAuth);
       }
     });
@@ -75,13 +81,16 @@ export class AuthService {
         newUser: userCredentials
       };
 
+      // Guardar los datos del usuario en la base de datos
       await this.writeUserData(writeUser);
       this.router.navigate(['/login'])
-      // this.router.navigate(['/emailverification']);
       await this.ngxSpinnerService.hide();
     } catch (error: any) {
       await this.ngxSpinnerService.hide();
+      // En caso de un error al guardar los datos en la base de datos, se eliminar el
+      // usurio que se crea con el método "createUserWithEmailAndPassword()"
       await userCredentials.user.delete();
+      // Eliminar el usuario del almacenamiento local
       await this.angularFireAuth.signOut();
       this.handleError(error.code);
       throw (error)

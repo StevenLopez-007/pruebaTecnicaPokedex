@@ -23,8 +23,9 @@ export class PokeDetailComponent implements OnInit {
 
 
   getHabilities(){
-    this.pokedexService.getHabilities(this.pokemon).subscribe((resp)=>{
-      this.habilities.push(resp);
+    this.pokedexService.getHabilities(this.pokemon).subscribe((habilidad)=>{
+      // A medida que se obtienes las habilidades, se añaden al arreglo de habiliadades
+      this.habilities.push(habilidad);
     });
 
   }

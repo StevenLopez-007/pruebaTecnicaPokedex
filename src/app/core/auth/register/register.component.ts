@@ -52,7 +52,6 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('password').hasError('minlength') ? 'La contraseña es muy corta' : '';
   }
 
-
   getErrorEmailMessage() {
     if (this.registerForm.get('email').hasError('required')) {
       return 'El E-mail es requerido';

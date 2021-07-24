@@ -13,6 +13,8 @@ export class PokedexService {
 
   constructor(private http: HttpClient) { }
 
+  // Obtenemos un listado con las url para obtener los detalles de cada pokemon, con concatMap y forkJoin
+  // vamos realizando las peticiones a esas url, al final se devuelve un solo arreglo con las informacion de todos los pokemones
   getPokemos(limit:number,offset:number){
     return this.http.get<any>(`${base_url}/pokemon/?limit=${limit}&offset=${offset}`).pipe(
       concatMap(({results})=>{

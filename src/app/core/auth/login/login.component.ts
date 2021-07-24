@@ -69,10 +69,6 @@ export class LoginComponent implements OnInit {
     ).subscribe();
   }
 
-  async resetPassword(){
-    // this.authService.resetPassword();
-  }
-
   configFormLogin(){
     this.loginForm = this.formBuilder.group({
       email:['',[Validators.required,Validators.email]],
