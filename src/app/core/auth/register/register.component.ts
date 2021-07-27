@@ -75,22 +75,19 @@ export class RegisterComponent implements OnInit {
         return await this.authService.register(this.registerForm.value)
       }),
       catchError((e)=>{
-        this.registerForm.get('password').reset();
+        this.registerForm.reset();
         this.register();
         return EMPTY;
-      }),
-      finalize(()=>{
-        this.ngxSpinnerService.hide();
       })
     ).subscribe();
   }
 
   configRegisterForm(){
     this.registerForm = this.formBuilder.group({
-      name:['Steven Lopez',[Validators.required,Validators.max(40)]],
-      email:['lopezgalvez30@gmail.com',[Validators.required,Validators.email]],
-      telefono:['60121674',[Validators.required,Validators.min(8)]],
-      password:['123456789',[Validators.required,Validators.minLength(6)]]
+      name:['',[Validators.required,Validators.max(40)]],
+      email:['',[Validators.required,Validators.email]],
+      telefono:['',[Validators.required,Validators.min(8)]],
+      password:['',[Validators.required,Validators.minLength(6)]]
     });
   }
 

@@ -21,6 +21,9 @@ export function getMsgError(code:string,args?:any,provider?:string){
     case 'auth/account-exists-with-different-credential':{
       return `Ya existe una cuenta con este correo electronico (${args.email}), inicia sesión con esa cuenta`
     }
+    case 'auth/email-already-in-use':{
+      return 'Este correo ya fue utilizado para otra cuenta'
+    }
     default:{
       return 'Ocurrió un error'
     }
