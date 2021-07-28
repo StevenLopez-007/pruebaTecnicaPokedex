@@ -1,9 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PokedexService } from '../services/pokedex.service';
 import { PokeDetailComponent } from '../../components/poke-detail/poke-detail.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../../auth/auth.service';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pokedex',
@@ -21,6 +24,7 @@ export class PokedexComponent implements OnInit,OnDestroy {
   disableButton:boolean=false;
 
   pokemons: any[]=[];
+  pokemon:any[]=[];
   types:any[]=[
     {
       name:'Acero',
@@ -96,16 +100,22 @@ export class PokedexComponent implements OnInit,OnDestroy {
     },
 ];
 
+  subscriptions = new Subscription();
+
+  @ViewChild('inputFindPokemon',{read:ElementRef,static:true}) num_pokedex:ElementRef;
+
   constructor(private pokedexService: PokedexService,private matDialog: MatDialog,
               private ngxSpinnerService: NgxSpinnerService,private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getPokemons();
+    this.searchByPokedex();
     document.body.style.backgroundColor="var(--bg-color1)";
   }
 
   ngOnDestroy(){
     document.body.style.backgroundColor="";
+    this.subscriptions.unsubscribe();
   }
 
   async getPokemons(){
@@ -150,5 +160,29 @@ export class PokedexComponent implements OnInit,OnDestroy {
 
   logOut(){
     this.authService.signOut();
+  }
+
+  searchByPokedex(){
+    const search$ = fromEvent(this.num_pokedex.nativeElement,'keyup').pipe(
+      map((event:any)=>event['target']['value']),
+      distinctUntilChanged(),
+      debounceTime(300)
+    );
+
+    this.subscriptions.add(search$.subscribe((numPokedex)=>{
+      if(numPokedex){
+        this.getPokemon(numPokedex);
+      }else{
+        this.pokemon = [];
+      }
+    }));
+  }
+
+  getPokemon(numPokedex){
+    this.pokedexService.getPokemon(numPokedex).subscribe((pokemon)=>{
+      if(pokemon){
+        this.pokemon = [pokemon];
+      }
+    });
   }
 }

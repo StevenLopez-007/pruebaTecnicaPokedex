@@ -43,5 +43,9 @@ export class PokedexService {
     return of([])
   }
 
+  getPokemon(poke:any){
+    return this.http.get(`${base_url}/pokemon/${poke}`);
+  }
+
 
 }
