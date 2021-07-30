@@ -37,8 +37,8 @@
   <h1 class=" py-4 text-white text-NBold d-flex align-items-center justify-content-center">Todos los pokemons</h1>
   <div class="container">
     <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-2">
-      <ng-container *ngIf="pokemon.length<1">
-        <div class="col p-3" *ngFor="let poke of pokemons | filterPokemons:filterType:filterNumberPokedex:filterName">
+      <ng-container *ngIf="pokemons.length>0;else empty">
+        <div class="col p-3" *ngFor="let poke of pokemons | filterPokemons:filterType">
           <mat-card class="card-pokemon bg-color2">
             <mat-card-header>
               <mat-card-title class="text-white">{{poke.name | uppercase}}</mat-card-title>
@@ -83,3 +83,9 @@
     <button (click)="getMorePokemos()" mat-raised-button color="primary">Cargar más</button>
   </p>
 </div>
+
+<ng-template #empty>
+  <div class="empty">
+    <img src="/assets/empty1.svg" alt="Vacío">
+  </div>
+</ng-template>

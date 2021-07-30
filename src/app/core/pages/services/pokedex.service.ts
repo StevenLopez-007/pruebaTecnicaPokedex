@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, from, of } from 'rxjs';
-import { concatMap, map, zip } from 'rxjs/operators';
+import { concatMap, map, switchMap, mergeMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.url_poke;
@@ -17,7 +17,7 @@ export class PokedexService {
   // vamos realizando las peticiones a esas url, al final se devuelve un solo arreglo con las informacion de todos los pokemones
   getPokemos(limit:number,offset:number){
     return this.http.get<any>(`${base_url}/pokemon/?limit=${limit}&offset=${offset}`).pipe(
-      concatMap(({results})=>{
+      switchMap(({results})=>{
         return forkJoin(results.map(item=>this.getPokemonDetail(item.url)))
       })
     )

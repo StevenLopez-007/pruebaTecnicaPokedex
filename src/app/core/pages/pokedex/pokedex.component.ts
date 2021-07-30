@@ -16,8 +16,8 @@ import { Subscription } from 'rxjs';
 export class PokedexComponent implements OnInit,OnDestroy {
 
   filterType:string[]=[null];
-  filterNumberPokedex:number;
-  filterName:string="";
+
+  searching:boolean = false;
 
   limit:number =10;
   offset:number =0;
@@ -122,6 +122,7 @@ export class PokedexComponent implements OnInit,OnDestroy {
     // Obtener pokemos de 10 en 10
     await this.ngxSpinnerService.show();
     this.pokedexService.getPokemos(this.limit,this.offset).subscribe(async(resp) => {
+      console.log(resp)
       this.pokemons=this.pokemons.concat(resp);
       await this.ngxSpinnerService.hide();
     },async (error)=>{
