@@ -1,0 +1,13 @@
+<mat-toolbar color="primary" class="mat-elevation-z6 d-flex flex-column-reverse">
+  <mat-toolbar-row>
+    <span class="text-NBold">Pokedex</span>
+    <span class="example-spacer"></span>
+      <button (click)="logOut()" mat-flat-button color="primary">
+        <mat-icon>logout</mat-icon>
+        Salir
+      </button>
+  </mat-toolbar-row>
+
+  <ng-content select="mat-toolbar-row"></ng-content>
+
+</mat-toolbar>

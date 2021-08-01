@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { PokedexService } from '../services/pokedex.service';
 import { PokeDetailComponent } from '../../components/poke-detail/poke-detail.component';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { AuthService } from '../../auth/auth.service';
 import { fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -105,7 +104,7 @@ export class PokedexComponent implements OnInit,OnDestroy {
   @ViewChild('inputFindPokemon',{read:ElementRef,static:true}) num_pokedex:ElementRef;
 
   constructor(private pokedexService: PokedexService,private matDialog: MatDialog,
-              private ngxSpinnerService: NgxSpinnerService,private authService: AuthService) { }
+              private ngxSpinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getPokemons();
@@ -122,7 +121,6 @@ export class PokedexComponent implements OnInit,OnDestroy {
     // Obtener pokemos de 10 en 10
     await this.ngxSpinnerService.show();
     this.pokedexService.getPokemos(this.limit,this.offset).subscribe(async(resp) => {
-      console.log(resp)
       this.pokemons=this.pokemons.concat(resp);
       await this.ngxSpinnerService.hide();
     },async (error)=>{
@@ -159,9 +157,6 @@ export class PokedexComponent implements OnInit,OnDestroy {
     });
   }
 
-  logOut(){
-    this.authService.signOut();
-  }
 
   searchByPokedex(){
     const search$ = fromEvent(this.num_pokedex.nativeElement,'keyup').pipe(
@@ -172,9 +167,13 @@ export class PokedexComponent implements OnInit,OnDestroy {
 
     this.subscriptions.add(search$.subscribe((numPokedex)=>{
       if(numPokedex){
+        this.searching=true;
         this.getPokemon(numPokedex);
+        console.log('if')
       }else{
         this.pokemon = [];
+        this.searching=false;
+        console.log('else')
       }
     }));
   }

@@ -1,21 +1,13 @@
-<mat-toolbar color="primary" class="mat-elevation-z6">
-  <mat-toolbar-row>
-    <span class="text-NBold">Pokedex</span>
-    <span class="example-spacer"></span>
-      <button (click)="logOut()" mat-flat-button color="primary">
-        Salir
-      </button>
-  </mat-toolbar-row>
-
+<app-header>
   <mat-toolbar-row>
 
       <mat-form-field class="number-pokedex" appearance="legacy" defaultColor="white">
-        <input #inputFindPokemon type="number" matInput placeholder="N° de pokedex">
+        <input #inputFindPokemon type="text" matInput placeholder="N° de pokedex">
       </mat-form-field>
 
       <span class="example-spacer"></span>
 
-      <button mat-flat-button color="primary" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <button *ngIf="!searching" mat-flat-button color="primary" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>sort</mat-icon> Filtrar por tipo:
       </button>
 
@@ -31,55 +23,63 @@
       </mat-menu>
 
   </mat-toolbar-row>
-
-</mat-toolbar>
+</app-header>
 <div class="container-fluid bg-color1">
-  <h1 class=" py-4 text-white text-NBold d-flex align-items-center justify-content-center">Todos los pokemons</h1>
+  <h1 class=" py-4 text-white text-NBold d-flex align-items-center justify-content-center">{{searching?'Buscar pokemon':'Todos los pokemons'}}</h1>
   <div class="container">
     <div class="row row-cols-1 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-sm-2">
-      <ng-container *ngIf="pokemons.length>0;else empty">
-        <div class="col p-3" *ngFor="let poke of pokemons | filterPokemons:filterType">
-          <mat-card class="card-pokemon bg-color2">
-            <mat-card-header>
-              <mat-card-title class="text-white">{{poke.name | uppercase}}</mat-card-title>
-              <mat-card-subtitle class="text-subtitle text-white">Peso: {{poke.weight}} kg</mat-card-subtitle>
-            </mat-card-header>
 
-            <img class="imgPoke" mat-card-image [src]="poke.sprites.other.dream_world.front_default"
-              [alt]="poke.name | uppercase">
+      <ng-container *ngIf="!searching">
+        <ng-container *ngIf="pokemons.length>0;else empty">
+          <ng-container *ngIf="( pokemons | filterPokemons:filterType) as pokemons">
+            <ng-container *ngIf="pokemons.length>0;else empty">
+              <div class="col p-3" *ngFor="let poke of pokemons">
+                <mat-card class="card-pokemon bg-color2">
+                  <mat-card-header>
+                    <mat-card-title class="text-white">{{poke.name | uppercase}}</mat-card-title>
+                    <mat-card-subtitle class="text-subtitle text-white">Peso: {{poke.weight}} kg</mat-card-subtitle>
+                  </mat-card-header>
 
-            <div class="buttonCard">
+                  <img class="imgPoke" mat-card-image [src]="poke.sprites.other.dream_world.front_default"
+                    [alt]="poke.name | uppercase">
 
-              <button (click)="viewDetailPokemon(poke)" mat-flat-button color="accent">Inspeccionar</button>
-            </div>
-          </mat-card>
+                  <div class="buttonCard">
 
-        </div>
+                    <button (click)="viewDetailPokemon(poke)" mat-flat-button color="accent">Inspeccionar</button>
+                  </div>
+                </mat-card>
+
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
       </ng-container>
 
       <!-- Pokemon encontrado -->
-      <ng-container *ngIf="pokemon.length>0">
-        <div class="col p-3" *ngFor="let poke of pokemon">
-          <mat-card class="card-pokemon bg-color2">
-            <mat-card-header>
-              <mat-card-title class="text-white">{{poke.name | uppercase}}</mat-card-title>
-              <mat-card-subtitle class="text-subtitle text-white">Peso: {{poke.weight}} kg</mat-card-subtitle>
-            </mat-card-header>
+      <ng-container *ngIf="searching">
+        <ng-container *ngIf="pokemon.length>0;else empty">
+          <div class="col p-3" *ngFor="let poke of pokemon">
+            <mat-card class="card-pokemon bg-color2">
+              <mat-card-header>
+                <mat-card-title class="text-white">{{poke.name | uppercase}}</mat-card-title>
+                <mat-card-subtitle class="text-subtitle text-white">Peso: {{poke.weight}} kg</mat-card-subtitle>
+              </mat-card-header>
 
-            <img class="imgPoke" mat-card-image [src]="poke.sprites.other.dream_world.front_default"
-              [alt]="poke.name | uppercase">
+              <img class="imgPoke" mat-card-image [src]="poke.sprites.other.dream_world.front_default"
+                [alt]="poke.name | uppercase">
 
-            <div class="buttonCard">
+              <div class="buttonCard">
 
-              <button (click)="viewDetailPokemon(poke)" mat-flat-button color="accent">Inspeccionar</button>
-            </div>
-          </mat-card>
+                <button (click)="viewDetailPokemon(poke)" mat-flat-button color="accent">Inspeccionar</button>
+              </div>
+            </mat-card>
 
-        </div>
+          </div>
+        </ng-container>
       </ng-container>
     </div>
   </div>
-  <p class="mb-0 text-center">
+  <p class="mb-0 text-center" *ngIf="!searching">
     <button (click)="getMorePokemos()" mat-raised-button color="primary">Cargar más</button>
   </p>
 </div>

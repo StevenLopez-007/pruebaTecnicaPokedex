@@ -7,6 +7,7 @@ import { PagesComponent } from './pages.component';
 import { AngularMaterialModule } from '../../angular-material.module';
 import { PipesPokeModule } from './pipes/pipes-poke.module';
 import { FormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     PagesRoutingModule,
     AngularMaterialModule,
-    PipesPokeModule
+    PipesPokeModule,
+    ComponentsModule
   ]
 })
 export class PagesModule { }
